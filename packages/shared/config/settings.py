@@ -16,6 +16,11 @@ class Settings(BaseSettings):
         default="ForgeMind",
         alias="APP_NAME",
     )
+    
+    version: str = Field(
+        default="0.1.0",
+        alias="APP_VERSION",
+    )
 
     app_env: Environment = Field(
         default=Environment.DEVELOPMENT,
