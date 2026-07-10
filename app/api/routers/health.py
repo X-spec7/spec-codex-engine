@@ -5,7 +5,7 @@ from packages.core.logging import get_logger
 
 router = APIRouter()
 
-@router.get("/")
+@router.get("")
 def health(settings: Settings = Depends(get_settings_dep)):
     logger = get_logger("api.health")
     logger.info("Health check requested")
