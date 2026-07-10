@@ -11,9 +11,17 @@ def configure_logging() -> None:
     settings = get_settings()
     level = getattr(logging, settings.log_level.name, logging.INFO)
 
+    is_production = settings.app_env == Environment.PRODUCTION
+
+    # Machine-readable ISO for production; human-readable, second-precision for dev.
+    timestamper = structlog.processors.TimeStamper(
+        fmt="iso" if is_production else "%Y-%m-%d %H:%M:%S",
+        utc=True,
+    )
+
     shared_processors = [
         structlog.processors.add_log_level,
-        structlog.processors.TimeStamper(fmt="iso"),
+        timestamper,
         structlog.processors.StackInfoRenderer(),
         structlog.processors.format_exc_info,
         structlog.processors.UnicodeDecoder(),
@@ -21,7 +29,7 @@ def configure_logging() -> None:
 
     renderer = (
         structlog.processors.JSONRenderer()
-        if settings.app_env == Environment.PRODUCTION
+        if is_production
         else structlog.dev.ConsoleRenderer(colors=True)
     )
 
