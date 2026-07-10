@@ -50,3 +50,10 @@ def configure_logging() -> None:
     root.handlers.clear()      # drop anything a prior basicConfig added
     root.addHandler(handler)
     root.setLevel(level)
+
+    # Libraries like uvicorn attach their own handlers and set propagate=False,
+    # so their logs never reach our root handler. Reset them to hand off to us.
+    for name in ("uvicorn", "uvicorn.error", "uvicorn.access", "sqlalchemy.engine"):
+        lib_logger = logging.getLogger(name)
+        lib_logger.handlers.clear()   # remove the library's own handler
+        lib_logger.propagate = True   # let records bubble up to root → our formatter
