@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     # Application
     #
     app_name: str = Field(
-        default="ForgeMind",
+        default="SpecCodexEngine",
         alias="APP_NAME",
     )
     
