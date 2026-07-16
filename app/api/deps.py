@@ -1,6 +1,5 @@
 from packages.shared.config.settings import get_settings
 from packages.core.logging import get_logger
-from fastapi import Depends
 
 def get_settings_dep():
     """Dependency for FastAPI routes."""
