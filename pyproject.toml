@@ -27,74 +27,42 @@ dev = [
 [tool.ruff]
 
 target-version = "py313"
-
 line-length = 100
-
-exclude = [
-    ".git",
-    ".venv",
-    ".mypy_cache",
-    ".pytest_cache",
-    "alembic/versions",
-]
+exclude = [".git", ".venv", ".mypy_cache", ".pytest_cache", "alembic/versions"]
 
 [tool.ruff.format]
 
 quote-style = "double"
-
 indent-style = "space"
-
 line-ending = "lf"
-
 docstring-code-format = true
 
 [tool.ruff.lint]
 
-select = [
-    "E",
-    "F",
-    "I",
-    "UP",
-    "B",
-    "SIM",
-]
-
-ignore = [
-    "E501",
-]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501"]
 
 [tool.mypy]
 
 python_version = "3.12"
-
 plugins = []
-
+files = ["app", "packages", "tests"]
 ignore_missing_imports = true
-
 warn_unused_configs = true
-
 warn_unused_ignores = true
-
 warn_redundant_casts = true
-
 warn_return_any = true
-
 check_untyped_defs = true
-
 disallow_untyped_defs = true
-
 pretty = true
-
 show_error_codes = true
+disallow_untyped_decorators = true
+disallow_incomplete_defs = true
+no_implicit_optional = true
+strict_equality = true
 
 [tool.pytest.ini_options]
 
-testpaths = [
-    "tests",
-]
-
-python_files = [
-    "test_*.py",
-]
-
+testpaths = ["tests"]
+python_files = ["test_*.py"]
 asyncio_mode = "auto"
